@@ -1,4 +1,5 @@
 from typing import Optional, Tuple, Dict, Any
+from bankid.types import AuthState, CollectState, PhoneAuthState, PhoneSignState, SignState
 
 import httpx
 
@@ -38,7 +39,7 @@ class BankIDAsyncClient(BankIDClientBaseclass):
         user_visible_data: str = None,
         user_non_visible_data: str = None,
         user_visible_data_format: str = None,
-    ) -> Dict[str, str]:
+    ) -> AuthState:
         """Request an authentication order. The :py:meth:`collect` method
         is used to query the status of the order.
 
@@ -97,7 +98,7 @@ class BankIDAsyncClient(BankIDClientBaseclass):
         user_visible_data: str = None,
         user_non_visible_data: str = None,
         user_visible_data_format: str = None,
-    ) -> Dict[str, str]:
+    ) -> PhoneAuthState:
         """Initiates an authentication order when the user is talking
         to the RP over the phone. The :py:meth:`collect` method
         is used to query the status of the order.
@@ -161,7 +162,7 @@ class BankIDAsyncClient(BankIDClientBaseclass):
         requirement: Dict[str, Any] = None,
         user_non_visible_data: str = None,
         user_visible_data_format: str = None,
-    ) -> Dict[str, str]:
+    ) -> SignState:
         """Request a signing order. The :py:meth:`collect` method
         is used to query the status of the order.
 
@@ -218,7 +219,7 @@ class BankIDAsyncClient(BankIDClientBaseclass):
         requirement: Dict[str, Any] = None,
         user_non_visible_data: str = None,
         user_visible_data_format: str = None,
-    ) -> Dict[str, str]:
+    ) -> PhoneSignState:
         """Initiates an authentication order when the user is talking to
         the RP over the phone. The :py:meth:`collect` method
         is used to query the status of the order.
@@ -273,7 +274,7 @@ class BankIDAsyncClient(BankIDClientBaseclass):
         else:
             raise get_json_error_class(response)
 
-    async def collect(self, order_ref: str) -> dict:
+    async def collect(self, order_ref: str) -> CollectState:
         """Collects the result of a sign or auth order using the
         ``orderRef`` as reference.
 
